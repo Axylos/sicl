@@ -1,0 +1,18 @@
+export class Greeter {
+    private greeting: string;
+
+    public gar: Fool;
+
+    private greeter: function;
+
+    private bar: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+
+
+
+    public greet() {
+        return "Bonjour, " + this.greeting + "!";
+    }
+}
