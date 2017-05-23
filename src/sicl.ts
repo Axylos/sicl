@@ -67,7 +67,7 @@ start
 
 const template = `
   Start
-    = Program
+    = __? Program __?
 
   Program
     = Function
@@ -89,7 +89,8 @@ const template = `
     = LParenToken _? ArgList? _? RParenToken
 
   ArgList
-    = Arg
+    = Arg "," _? ArgList
+    / Arg
     _?
 
   Arg

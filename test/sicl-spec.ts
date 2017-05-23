@@ -23,8 +23,16 @@ describe("parser", () => {
             expect(subject.parse("fn foo(){     }")).to.not.be.empty;
         });
 
+        it("should accept spaces at beginning and end of src", () => {
+            expect(subject.parse(" fn foo () {}   ")).to.not.be.empty;
+        })
+
         it("should accept an arg to a fn", () => {
             expect(subject.parse("fn foo (a) {  }")).to.not.be.empty;
+        });
+
+        it("should accept multiple args", () => {
+            expect(subject.parse("fn foo(a, b, c) { } ")).to.not.be.empty;
         })
     })
 })
