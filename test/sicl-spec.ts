@@ -20,6 +20,11 @@ describe("parser", () => {
             expect(subject.parse("fn foo ( ) { }")).to.not.be.empty;
             expect(subject.parse("fn foo () {}")).to.not.be.empty;
             expect(subject.parse("fn foo(){}")).to.not.be.empty;
+            expect(subject.parse("fn foo(){     }")).to.not.be.empty;
+        });
+
+        it("should accept an arg to a fn", () => {
+            expect(subject.parse("fn foo (a) {  }")).to.not.be.empty;
         })
     })
 })

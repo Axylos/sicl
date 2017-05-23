@@ -51,7 +51,7 @@ start
   FnBody
     = LBraceToken ws? Expr ws? RBraceToken
 
-  Expr 
+  Exp
     = .
 
 
@@ -60,7 +60,7 @@ start
   RParenToken = ")"
   LBraceToken = "{"
   RBraceToken = "}"
-  
+
   FnToken = "fn"
 
 `;
@@ -74,9 +74,7 @@ const template = `
 
   Function
     = FnToken _ Name _? Args _? FnBody
-
-  
-  _ 
+  _
   = "\t"
     / "\v"
     / "\f"
@@ -84,15 +82,24 @@ const template = `
     / "\u00A0"
     / "\uFEFF"
 
-  
   Name
     = [a-zA-z]+
 
   Args
-    = LParenToken _? RParenToken
+    = LParenToken _? ArgList? _? RParenToken
+
+  ArgList
+    = Arg
+    _?
+
+  Arg
+    = Name
+
+  __
+  = _*
 
   FnBody
-    = LBraceToken _? RBraceToken
+    = LBraceToken __? RBraceToken
 
   //Tokens
 
@@ -109,9 +116,5 @@ export class SiclParser {
     public makeParser() {
         const parser = peg.generate(template);
         return parser;
-    }
-
-    constructor() {
-
     }
 }

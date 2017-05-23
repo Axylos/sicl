@@ -3,13 +3,9 @@ export interface IFoo {
 }
 
 export class Greeter {
-    private greeting: string;
-
-    private baz() {
-        return this.bar();
-    }
-
     public foo: IFoo;
+
+    private greeting: string;
 
     constructor(message: string) {
         this.greeting = message;
@@ -19,9 +15,11 @@ export class Greeter {
         return this.greet();
     }
 
-
-
     public greet() {
         return "Bonjour, " + this.greeting + "!";
+    }
+
+    private baz() {
+        return this.bar();
     }
 }

@@ -1,9 +1,9 @@
 import peg = require("pegjs");
-export * from './sicl';
+export * from "./sicl";
 
 import { SiclParser } from "./sicl";
-export * from "./greeter"; 9
+export * from "./greeter";
 
-//let parser = new SiclParser();
+// let parser = new SiclParser();
 
-//let parser = new SiclParser();
+// let parser = new SiclParser();
