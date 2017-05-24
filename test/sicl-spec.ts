@@ -35,4 +35,11 @@ describe("parser", () => {
             expect(subject.parse("fn foo(a, b, c) { } ")).to.not.be.empty;
         })
     })
+
+    describe("basic types", () => {
+        const subject = parser.makeParser();
+        it("should parse a number", () => {
+            expect(subject.parse("fn foo(a, b) { 3;}")).to.not.be.empty;
+        })
+    })
 })
