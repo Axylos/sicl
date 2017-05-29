@@ -42,4 +42,15 @@ describe("parser", () => {
             expect(subject.parse("fn foo(a, b) { 3;}")).to.not.be.empty;
         })
     })
+
+    describe("combinators", () => {
+        const subject = parser.makeParser();
+
+        function makeTmpl(expr: string) { return `fn main() { ${expr}; }` }
+        it("should recognize the I combinator", () => {
+            const expr = "#I";
+            const tmpl = makeTmpl(expr);
+            expect(subject.parse(tmpl)).to.not.be.empty;
+        })
+    })
 })

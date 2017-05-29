@@ -7,6 +7,12 @@ const template = `
   Program
     = Function
 
+  CombExpr
+    = Combinator
+
+  Combinator
+    = "#" Name
+
   Function
     = FnToken _ Name _? Args _? FnBody
   _
@@ -39,6 +45,7 @@ const template = `
 
   Expr
     = TypeLiteral SemiToken
+    / CombExpr SemiToken
     / __?
 
 
@@ -63,7 +70,7 @@ const template = `
 
   LBraceToken = "{"
   RBraceToken = "}"
-`
+`;
 export class SiclParser {
     public makeParser() {
         const parser = peg.generate(template);
