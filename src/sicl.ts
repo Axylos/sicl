@@ -1,20 +1,24 @@
 import peg = require("pegjs");
 
 const template = `
+{
+  let functions = {};
+  let main = null;
+}
   Start
-    = __? Program __?
+    = __? program:Program __? { return { src: {program, main } }; }
 
   Program
-    = Function
+    = func:Function { if (func.name === "main") { main = func; } return func }
 
   CombExpr
     = Combinator
 
   Combinator
-    = "#" Name
+    = "#" name:Name { return { op: "eval", ident: name }}
 
   Function
-    = FnToken _ Name _? Args _? FnBody
+    = FnToken _ name:Name _? args:Args _? body:FnBody { return {name, args, body}; }
   _
   = "\t"
     / "\v"
@@ -24,28 +28,32 @@ const template = `
     / "\uFEFF"
 
   Name
-    = [a-zA-z]+
+    = str:[a-zA-z]+ { return str.join(""); }
 
   Args
-    = LParenToken _? ArgList? _? RParenToken
+    = LParenToken _? args:ArgList? _? RParenToken { return args || []; }
 
   ArgList
-    = Arg "," _? ArgList
+    = Arg "," _? list:ArgList { return list; }
     / Arg
     _?
 
   Arg
     = Name
-
   __
   = _*
 
   FnBody
-    = LBraceToken __? Expr __? RBraceToken
+    = LBraceToken __? exprList:ExprList __? RBraceToken { return exprList; }
+
+  ExprList
+    = Expr __? SemiToken __? ExprList
+    / Expr SemiToken
+    / __?
 
   Expr
-    = TypeLiteral SemiToken
-    / CombExpr SemiToken
+    = literal:TypeLiteral  { return literal; }
+    / comb:CombExpr  { return comb; }
     / __?
 
 

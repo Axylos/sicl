@@ -1,7 +1,9 @@
 import { SiclParser } from "../src/sicl";
 import * as chai from "chai";
 
-const expect = chai.expect;
+const expect = chai.expect
+
+function makeTmpl(expr: string) { return `fn main() { ${expr}; }` }
 
 describe("parser", () => {
     let parser = new SiclParser();
@@ -12,9 +14,6 @@ describe("parser", () => {
 
     describe("basic tokens", () => {
         const subject = parser.makeParser();
-        xit("should match fn", () => {
-            expect(subject.parse("fn")).to.not.be.empty;
-        });
 
         it("should match a fn signature", () => {
             expect(subject.parse("fn foo ( ) { }")).to.not.be.empty;
@@ -46,11 +45,35 @@ describe("parser", () => {
     describe("combinators", () => {
         const subject = parser.makeParser();
 
-        function makeTmpl(expr: string) { return `fn main() { ${expr}; }` }
         it("should recognize the I combinator", () => {
             const expr = "#I";
             const tmpl = makeTmpl(expr);
             expect(subject.parse(tmpl)).to.not.be.empty;
         })
+    });
+
+    describe("parsing exprs", () => {
+        const subject = parser.makeParser();
+        const expr = makeTmpl("#I");
+        const parsed_stuff = subject.parse(expr).src;
+        console.log(parsed_stuff);
+
+        it("should have a program key", () => {
+            expect(parsed_stuff.program).to.not.be.empty;
+        });
+
+        it("should have a main fnc", () => {
+            expect(parsed_stuff.main).to.not.be.empty;
+        });
+
+        it("should have a man fnc args list", () => {
+            expect(parsed_stuff.main.args.length).to.equal(0);
+        });
+
+        describe("body", () => {
+            it("should be an object", () => {
+                expect(parsed_stuff.main.body.length).to.not.be.empty;
+            });
+        });
     })
 })
