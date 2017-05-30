@@ -44,10 +44,10 @@ const template = `
   = _*
 
   FnBody
-    = LBraceToken __? exprList:ExprList __? RBraceToken { return exprList; }
+    = LBraceToken __? exprList:ExprList __? RBraceToken { return exprList.reverse(); }
 
   ExprList
-    = Expr __? SemiToken __? ExprList
+    = expr:Expr __? SemiToken __? list:ExprList { return list.concat(expr); }
     / Expr SemiToken
     / __?
 

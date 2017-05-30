@@ -53,27 +53,47 @@ describe("parser", () => {
     });
 
     describe("parsing exprs", () => {
-        const subject = parser.makeParser();
-        const expr = makeTmpl("#I");
-        const parsed_stuff = subject.parse(expr).src;
-        console.log(parsed_stuff);
+        describe("top level parsing", () => {
+            const subject = parser.makeParser();
+            const expr = makeTmpl("#I");
+            const parsed_stuff = subject.parse(expr).src;
 
-        it("should have a program key", () => {
-            expect(parsed_stuff.program).to.not.be.empty;
+
+            it("should have a program key", () => {
+                expect(parsed_stuff.program).to.not.be.empty;
+            });
+
+            it("should have a main fnc", () => {
+                expect(parsed_stuff.main).to.not.be.empty;
+            });
+
+            it("should have a man fnc args list", () => {
+                expect(parsed_stuff.main.args.length).to.equal(0);
+            });
         });
 
-        it("should have a main fnc", () => {
-            expect(parsed_stuff.main).to.not.be.empty;
-        });
-
-        it("should have a man fnc args list", () => {
-            expect(parsed_stuff.main.args.length).to.equal(0);
-        });
 
         describe("body", () => {
+            const subject = parser.makeParser();
+            const expr = makeTmpl("#I");
+            let parsed_stuff = subject.parse(expr).src;
             it("should be an object", () => {
                 expect(parsed_stuff.main.body.length).to.not.be.empty;
             });
+
+            it('should accept multiple body exprs', () => {
+                parsed_stuff = subject.parse(makeTmpl("#I; #K; #S; #K;")).src;
+
+                expect(parsed_stuff.main.body).to.not.be.empty;
+                expect(parsed_stuff.main.body.length).to.equal(4);
+
+                const exprs = parsed_stuff.main.body;
+                expect(exprs[0].op).to.equal("eval");
+                const expr_idents = exprs.map((el: any) => {
+                    return el["ident"];
+                })
+                expect(expr_idents).to.eql(["I", "K", "S", "K"])
+            })
         });
     })
 })
