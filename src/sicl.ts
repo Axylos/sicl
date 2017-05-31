@@ -4,9 +4,40 @@ const template = `
 {
   let functions = {};
   let main = null;
+  let main_term = null;
+
+  function parseMod(exprs, name) {
+    exprs.forEach( expr => {
+      if (expr.name === "main") {
+        main_term = expr;
+      }
+    });
+    
+
+    return {name, exprs};
+  }
 }
   Start
     = __? program:Program __? { return { src: {program, main } }; }
+    / __? module:Module __? { return { src: {module, main_term} }; }
+
+  Module
+    = "Module" __? name:Name __? "{" __? exprs:TermExprs __? "}" { return parseMod(exprs, name); }
+
+  TermExprs
+    = termOp:TermOp __? list:TermExprs __? SemiToken { return list.concat(termOp); }
+    / termOp:TermOp __? SemiToken { return [termOp]}
+    / __? { return []}
+
+  TermOp
+    = op:TermAssignment { return op}
+
+  TermAssignment
+    = "term" __? name:Name ":" __? seq:TermSeq { return {name, seq}}
+
+  TermSeq
+    = expr:CombExpr __? seq:TermSeq SemiToken { return seq.concat(expr)}
+    / expr:CombExpr { return [expr]; }
 
   Program
     = func:Function { if (func.name === "main") { main = func; } return func }
