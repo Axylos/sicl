@@ -1,12 +1,12 @@
-import { SiclCodeGenerator } from "../src/code_generator";
-import { SiclParser } from "../src/sicl";
+import { SiclCodeGenerator } from "../src/ts_bits/code_generator";
+import { SiclParser } from "../src/ts_bits/sicl";
 import * as chai from "chai";
 
 const expect = chai.expect
 
 function makeTmpl(expr: string) { return `Module Foo { ${expr}; }` }
 
-describe.only("code generator", () => {
+describe("code generator", () => {
     const src = makeTmpl("term main: #I");
     let parser = new SiclParser().makeParser();
     const src_ast = parser.parse(src);
@@ -17,7 +17,6 @@ describe.only("code generator", () => {
     });
 
     it("should have a main fn", () => {
-        console.log(generator.generate_main());
         expect(generator.generate_main()).to.not.be.empty;
     })
 })

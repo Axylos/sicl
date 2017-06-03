@@ -1,4 +1,4 @@
-import { SiclParser } from "../src/sicl";
+import { SiclParser } from "../src/ts_bits/sicl";
 import * as chai from "chai";
 
 const expect = chai.expect
