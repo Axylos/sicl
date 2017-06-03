@@ -29,7 +29,10 @@
   "devDependencies": {
     "@types/chai": "^3.0.0",
     "@types/mocha": "^2.0.0",
-    "@types/node": "^7.0.0",
+      "@types/node": "^7.0.0",
+      "@types/dot": "^1.1.1",
+      "dot": "^1.1",
+      
     "chai": "^3.0.0",
     "mocha": "^3.0.0",
     "nyc": "^10.0.0",
