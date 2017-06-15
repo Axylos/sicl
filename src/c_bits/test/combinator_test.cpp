@@ -2,9 +2,13 @@
 #include "combinator.hpp"
 
 namespace {
-    class CombTest : public ::testing::Test {
+  class CombTest : public ::testing::Test {
+  protected:
+    virtual void SetUp() {
+      Combinator d = Combinator();
+    }
 
-    };
+  };
 
     TEST_F(CombTest, Evals) {
         Combinator c = Combinator();
