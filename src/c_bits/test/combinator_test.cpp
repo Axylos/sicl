@@ -10,5 +10,10 @@ namespace {
         Combinator c = Combinator();
 
         EXPECT_EQ(1, 1);
+        EXPECT_TRUE(c.eval());
+    }
+
+    TEST_F(CombTest, Shapes) {
+        Shape s;
     }
 }

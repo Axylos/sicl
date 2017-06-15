@@ -27,10 +27,14 @@ $(ODIR)/context.o:
 
 _TSTFILZ=$(wildcard $(TSTDIR)/*.cpp)
 
+.PHONY: test
 test: $(TSTDIR)/libgtest.a $(ODIR)/lib.a $(_TSTFILZ)
 	$(CC) -isystem $(GTESTDIR)/include -pthread $^\
 		-I combinator/includes -o $(TSTDIR)/test_runner
 	./test/test_runner
+
+clean_test:
+	rm -rf $(TSTDIR)/test_runner
 
 $(TSTDIR)/tst_cases.o: $(ODIR)/lib.a $(_TSTFILZ)
 	echo $^
