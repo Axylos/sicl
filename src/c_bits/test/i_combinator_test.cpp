@@ -2,7 +2,7 @@
 #include "i_combinator.hpp"
 
 namespace {
-  class ICombTest : public ::testing:Test {
-    01
+  class ICombTest : public ::testing::Test {
+
   };
 }
