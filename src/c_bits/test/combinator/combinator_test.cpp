@@ -5,7 +5,7 @@ namespace {
   class CombTest : public ::testing::Test {
   protected:
     virtual void SetUp() {
-      Combinator d = Combinator();
+
     }
 
   };
@@ -13,8 +13,8 @@ namespace {
 
 
   TEST_F(CombTest, Wat) {
-    Combinator d = Combinator();
-    int a = d.foo();
+
+
 
 
   }

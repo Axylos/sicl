@@ -1,8 +1,7 @@
-class Combinator {
+#include "term.hpp"
+class Combinator : public Term {
 public:
-  int foo(void);
-  int get_me_out_of_here(int a);
-  int bar(int a);
+  virtual void apply(Term* term) = 0;
 };
 
 struct Foo {
