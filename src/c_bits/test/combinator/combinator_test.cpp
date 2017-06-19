@@ -9,15 +9,22 @@ namespace {
     }
 
   };
-
-    TEST_F(CombTest, Evals) {
-        Combinator c = Combinator();
-
-        EXPECT_EQ(1, 1);
-        EXPECT_TRUE(c.eval());
-    }
-
-    TEST_F(CombTest, Shapes) {
-        Shape s;
-    }
 }
+
+
+  TEST_F(CombTest, Wat) {
+    Combinator d = Combinator();
+    int a = d.foo();
+
+
+  }
+
+/*
+int main(int argc, char** argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+
+
+   return RUN_ALL_TESTS();
+}
+
+*/

@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "combinator.hpp"
 using std::cout;
 using std::endl;
